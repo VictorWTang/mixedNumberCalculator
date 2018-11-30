@@ -4,3 +4,4 @@ calculate::calculate()
 {
 
 }
+

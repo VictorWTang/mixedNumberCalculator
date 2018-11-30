@@ -9,13 +9,17 @@ public:
   enum ERRORS {INVALID_INPUT};
 
   // Takes in algebraic expression, returns RPN expression
-  static std::string parseExpression(const std::string &input);
+  // Throws INVALID_INPUT if input not valid
+  static std::string parseToRPN(const std::string  &input);
+
+  // Takes in algebraic expression, returns reformatted
+  static std::string formatExpression(const std::string &input);
 
 private:
   // Determines if algebraic expression is valid
   static bool isInputValid(const std::string &input);
   // Translates algebraic expression to RPN expression
-  static std::string translateExpression(const std::string &input);
+  static std::string toRPN(const std::string &input);
   parser();
 };
 
