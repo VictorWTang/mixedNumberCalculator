@@ -6,6 +6,7 @@ class streamUtilities
 {
 public:
   static bool hasNextInt(std::istream &in);
+  static bool hasNextDouble(std::istream &in);
   static void consumeWhitespace(std::istream &in);
 
 private:
