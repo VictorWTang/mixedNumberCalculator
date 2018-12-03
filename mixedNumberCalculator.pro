@@ -8,10 +8,12 @@ SOURCES += \
     parser.cpp \
     calculate.cpp \
     fraction.cpp \
-    mixednumber.cpp
+    mixednumber.cpp \
+    streamutilities.cpp
 
 HEADERS += \
     parser.h \
     calculate.h \
     fraction.h \
-    mixednumber.h
+    mixednumber.h \
+    streamutilities.h
