@@ -17,7 +17,8 @@ public:
 
 private:
   // Determines if algebraic expression is valid
-  static bool isInputValid(const std::string &input);
+  // Throws INVALID_INPUT if input not valid
+  static void ensureInputValid(const std::string &input);
   // Translates algebraic expression to RPN expression
   static std::string toRPN(const std::string &input);
   parser();
