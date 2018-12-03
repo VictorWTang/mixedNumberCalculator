@@ -31,11 +31,15 @@ std::istream& operator>>(std::istream& in, fraction &frac)
     }
     if(in>>frac.num)
     {
-      if(in.peek() == '/' && in >> junk && in >> possibleDenom) {
+      if(in.peek() == '/') {
+        in >> junk >> possibleDenom;
         if(possibleDenom == 0) {
           throw(fraction::DIVIDE_BY_ZERO);
         }
         frac.denom = possibleDenom;
+      } else if(in.peek() == '.') {
+        in >> junk >> possibleDenom;
+        frac = fraction(static_cast<double>(frac.num)/possibleDenom);
       } else {
         frac.denom = 1;
       }
