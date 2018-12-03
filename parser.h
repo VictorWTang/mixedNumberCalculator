@@ -21,7 +21,7 @@ private:
   static void ensureInputValid(const std::string &input);
   // Translates algebraic expression to RPN expression
   static std::string toRPN(const std::string &input);
-  parser();
+  parser() {}
 };
 
 #endif // PARSER_H

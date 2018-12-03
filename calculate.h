@@ -8,8 +8,7 @@ class calculate
 public:
   mixedNumber calculateExpression(const std::string &rpnExpression);
 private:
-  calculate();
-
+  calculate() {}
 };
 
 #endif // CALCULATE_H

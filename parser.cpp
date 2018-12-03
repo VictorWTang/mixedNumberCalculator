@@ -1,10 +1,5 @@
 #include "parser.h"
 
-parser::parser()
-{
-
-}
-
 std::string parser::parseToRPN(const std::string  &input) {
 
 }
