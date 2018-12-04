@@ -14,6 +14,10 @@ int main()
 }
 
 void runTests() {
+  cout << setw(10) << "INPUT"
+       << setw(10) << "OUTPUT"
+       << setw(10) << "EXPECTED"
+       << setw(10) << "PASS/FAIL" << endl;
   // FRACTION TESTS
   testFraction("5", "5");
   testFraction("5/3", "5/3");
@@ -27,6 +31,8 @@ void runTests() {
   testFraction("-1/2", "-1/2");
   testFraction("-0.5", "-1/2");
 
+  // MIXED NUMBER TESTS
+
 
 
 }
@@ -39,10 +45,10 @@ void testFraction(string input, string expectedOutput) {
   ss >> frac;
   ss << frac;
   getline(ss, output);
-  cout << "          INPUT: " << setw(10) << input << endl;
-  cout << "         OUTPUT: " << setw(10) << output << endl;
-  cout << "EXPECTED OUTPUT: " << setw(10) << expectedOutput << " " << passFail(output, expectedOutput) << endl;
-  cout << endl;
+  cout << setw(10) << input;
+  cout << setw(10) << output;
+  cout << setw(10) << expectedOutput;
+  cout << setw(10) << passFail(output, expectedOutput) << endl;
 }
 
 string passFail(string output, string expectedOutput) {

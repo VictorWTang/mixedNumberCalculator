@@ -1,4 +1,5 @@
 #include "fraction.h"
+#include "streamutilities.h"
 
 std::ostream& operator<<(std::ostream& out, const fraction &frac)
 {
@@ -11,44 +12,38 @@ std::ostream& operator<<(std::ostream& out, const fraction &frac)
 std::istream& operator>>(std::istream& in, fraction &frac)
 {
   char junk;
-  std::stringstream ss;
-  std::string possibleFraction;
-  if(&in == &std::cin)
-  {
-    if(in>>possibleFraction)
-    {
-      ss<<possibleFraction;
-      ss>>frac;
-    }
+  int possibleNum;
+  int possibleDenom;
+  bool isNegative = false;
+  if(in.peek() == '-') {
+    in.get();
+    isNegative = true;
   }
-  else
+  if(streamUtilities::hasNextInt(in))
   {
-    int possibleDenom;
-    bool isNegative = false;
-    if(in.peek() == '-') {
-      isNegative = true;
-      in.ignore(1);
-    }
-    if(in>>frac.num)
-    {
-      if(in.peek() == '/') {
-        in >> junk >> possibleDenom;
-        if(possibleDenom == 0) {
-          throw(fraction::DIVIDE_BY_ZERO);
-        }
-        frac.denom = possibleDenom;
-      } else if(in.peek() == '.') {
-        in >> junk >> possibleDenom;
-        frac = fraction(static_cast<double>(frac.num)/possibleDenom);
-      } else {
-        frac.denom = 1;
+    in>>possibleNum;
+    if(in.peek() == '/' && in >> junk >> possibleDenom) {
+      if(possibleDenom == 0) {
+        throw(fraction::DIVIDE_BY_ZERO);
       }
-      frac.reduce();
-      if(isNegative) {
-        frac.num *= -1;
-      }
-      in.clear();
+      frac.setValue(possibleNum, possibleDenom);
+    } else if(in.peek() == '.' && in >> junk >> possibleDenom) {
+      std::stringstream ss;
+      ss << possibleNum << '.' << possibleDenom;
+      double fracDouble;
+      ss >> fracDouble;
+      frac = fracDouble;
     } else {
+      frac.setValue(possibleNum);
+    }
+    if(isNegative) {
+      frac.num *= -1;
+    }
+    frac.reduce();
+    in.clear();
+  } else {
+    if(isNegative) {
+      in.unget();
     }
   }
   return in;
