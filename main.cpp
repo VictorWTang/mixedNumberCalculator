@@ -26,8 +26,12 @@ static uniform_int_distribution<int> charDistribution(' ', '~');
 
 int main()
 {
-  generator.seed(static_cast<unsigned int>(time(nullptr)));
-  runTests();
+//  generator.seed(static_cast<unsigned int>(time(nullptr)));
+//  runTests();
+
+
+
+
   return 0;
 }
 
