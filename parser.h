@@ -2,6 +2,7 @@
 #define PARSER_H
 #include <cstdlib>
 #include <string>
+#include <sstream>
 
 class parser
 {
