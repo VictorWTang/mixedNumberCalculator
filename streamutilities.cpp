@@ -26,6 +26,7 @@ bool streamUtilities::hasNextFraction(std::istream &in) {
 
   while(in.good() && inputValid && !forwardSlashFound) {
     nextChar = static_cast<char>(in.get());
+    std::cout << "found:" << nextChar << std::endl;
     charExtractedCount++;
     if(!forwardSlashFound) {
       if(firstChar) {
@@ -36,7 +37,7 @@ bool streamUtilities::hasNextFraction(std::istream &in) {
         }
       } else {
         // After first char; valid chars: 0-9, /
-        if(!isNumber09(nextChar) || nextChar != '/') {
+        if(!isNumber09(nextChar) && nextChar != '/') {
           inputValid = false;
         } else if(nextChar == '/') {
           forwardSlashFound = true;
@@ -69,4 +70,8 @@ bool streamUtilities::isNumber19(char n) {
 
 bool streamUtilities::isNumber09(char n) {
   return n >= '0' && n <= '9';
+}
+
+bool streamUtilities::isOperator(char n) {
+  return n == '+' || n == '-' || n == '*' || n == '/';
 }

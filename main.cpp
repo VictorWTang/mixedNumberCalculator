@@ -11,6 +11,7 @@ struct testPair {
 void runTests();
 string passFail(string output, string expectedOutput);
 string generateRandomTrash();
+void runHasNextFractionTests();
 
 template <class T>
 void testTypeInput(string input, string expectedOutput);
@@ -24,15 +25,33 @@ void testMultipleStreamIntegrity(string input, string expectedOutput);
 static default_random_engine generator;
 static uniform_int_distribution<int> charDistribution(' ', '~');
 
+
+
 int main()
 {
 //  generator.seed(static_cast<unsigned int>(time(nullptr)));
 //  runTests();
 
-
+  runHasNextFractionTests();
 
 
   return 0;
+}
+
+void runHasNextFractionTests() {
+  string input = "1232/1233alsdkjasldkj";
+  bool output;
+  string restOfLine;
+
+  stringstream ss;
+
+  ss << input;
+  output = streamUtilities::hasNextFraction(ss);
+  getline(ss, restOfLine);
+
+  cout << "INPUT: " << input << endl;
+  cout << "OUTPUT: " << output << endl;
+  cout << "REST OF LINE: " << restOfLine << endl;
 }
 
 void runTests() {

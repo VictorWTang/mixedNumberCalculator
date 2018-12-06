@@ -3,11 +3,22 @@
 #include <cstdlib>
 #include <string>
 #include <sstream>
+#include "streamutilities.h"
 
 class parser
 {
 public:
-  enum ERRORS {INVALID_INPUT};
+  enum ERRORS {
+    INVALID_INPUT,
+    INVALID_NUMBER,
+    NUMBER_AFTER_RIGHT_PARENTHESIS,
+    NEGATIVE_AFTER_RIGHT_PARENTHESIS,
+    OPERATOR_AFTER_LEFT_PARENTHESIS,
+    OPERATOR_AFTER_OPERATOR,
+    DECIMAL_WITHOUT_PROCEEDING_NUMBER,
+    DECIMAL_WITHOUT_PRECEEDING_NUMBER,
+    INVALID_CHARACTER
+  };
 
   // Takes in algebraic expression, returns RPN expression
   // Throws INVALID_INPUT if input not valid
