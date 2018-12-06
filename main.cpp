@@ -1,6 +1,8 @@
 #include <iostream>
 #include <random> // TODO Remove when done testing
 #include "mixednumber.h"
+#include "parseexception.h"
+#include "parser.h"
 
 using namespace std;
 

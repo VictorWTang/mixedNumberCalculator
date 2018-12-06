@@ -7,6 +7,7 @@
 #include <queue>
 #include <vector>
 #include "streamutilities.h"
+#include "parseexception.h"
 
 class parser
 {
