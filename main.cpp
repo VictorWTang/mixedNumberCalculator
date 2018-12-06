@@ -32,7 +32,7 @@ int main()
 //  generator.seed(static_cast<unsigned int>(time(nullptr)));
 //  runTests();
 
-  runHasNextFractionTests();
+//  runHasNextFractionTests();
 
 
   return 0;
