@@ -1,7 +1,10 @@
 #include <iostream>
 #include <random> // TODO Remove when done testing
 #include "mixednumber.h"
+<<<<<<< HEAD
 #include "parseexception.h"
+=======
+>>>>>>> workingOnEnsure
 #include "parser.h"
 
 using namespace std;
@@ -14,6 +17,8 @@ void runTests();
 string passFail(string output, string expectedOutput);
 string generateRandomTrash();
 void runHasNextFractionTests();
+void runEnsureInputValidTests();
+void testInputValid(string input);
 
 template <class T>
 void testTypeInput(string input, string expectedOutput);
@@ -36,8 +41,37 @@ int main()
 
 //  runHasNextFractionTests();
 
+  runEnsureInputValidTests();
 
   return 0;
+}
+
+void runEnsureInputValidTests() {
+  testInputValid("023");
+  testInputValid("(3 + 5) 44");
+  testInputValid("(3 + 5) -44");
+  testInputValid("( + 3)");
+  testInputValid("5 + *");
+  testInputValid("5 + 3 ) + 2");
+  testInputValid("( 5 + ) * 3");
+  testInputValid("5 + 3");
+  testInputValid("5 + +3");
+//  testInputValid("5 + 3");
+//  testInputValid("5 + 3");
+//  testInputValid("5 + 3");
+//  testInputValid("5 + 3");
+//  testInputValid("5 + 3");
+}
+
+void testInputValid(string input) {
+  cout << "INPUT: " << input << endl;
+  try {
+    parser::ensureInputValid(input);
+    cout << "VALID" << endl;
+  } catch (parser::ERRORS e) {
+    cout << "Exception: " << e << endl;
+  }
+  cout << endl;
 }
 
 void runHasNextFractionTests() {
@@ -200,7 +234,6 @@ string generateRandomTrash() {
   }
   return randomChars;
 }
-
 
 string passFail(string output, string expectedOutput) {
   if(output == expectedOutput) {

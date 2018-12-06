@@ -225,32 +225,33 @@ void parser::ensureInputValid(const std::string &input) {
   char nextChar;
   while(ss.good()) {
     nextChar = static_cast<char>(ss.get());
-
+    std::cout << "Testing: " << nextChar << std::endl;
     if(nextChar == ' ') {
       intFound = false;
     } else if(streamUtilities::isNumber09(nextChar)) {
       if(nextChar == '0' && ss.peek() != '.') {
         if(!intFound) {
-          throw INVALID_NUMBER; // Invalid number, ie. 023 or 0/3
+          throw INVALID_NUMBER; // ie. 023 or 0/3
         }
       } else if(rightParenFound) {
-        throw NUMBER_AFTER_RIGHT_PARENTHESIS; // Number after right parentheses, ie. (3 + 5) 44
+        throw NUMBER_AFTER_RIGHT_PARENTHESIS; // ie. (3 + 5) 44
       } else {
         intFound = true;
+        operatorFound = false;
         leftParenFound = false;
       }
     } else if(nextChar == '-' && streamUtilities::isNumber09(static_cast<char>(ss.peek()))) {
       if(rightParenFound) {
-        throw NEGATIVE_AFTER_RIGHT_PARENTHESIS; // Negative sign after right parentheses, ie. (3 + 5) -44
+        throw NEGATIVE_AFTER_RIGHT_PARENTHESIS; // ie. (3 + 5) -44
       }
       negateFound = true;
     } else if(streamUtilities::isOperator(nextChar)) {
       if(operatorFound || leftParenFound) {
-        if(nextChar != '-' && !streamUtilities::isNumber09(static_cast<char>(ss.peek()))) {
+        if(!(nextChar == '-' && streamUtilities::isNumber09(static_cast<char>(ss.peek())))) {
           if(leftParenFound) {
-            throw OPERATOR_AFTER_LEFT_PARENTHESIS; // Operator after left parenthese, ie. ( + 3) or (- 2 + 2)
-          } else {
-            throw OPERATOR_AFTER_OPERATOR; // Operator after operator, but not negate sign, ie. + - or / /
+            throw OPERATOR_AFTER_LEFT_PARENTHESIS; // ie. ( + 3) or (- 2 + 2)
+          } else if(operatorFound) {
+            throw OPERATOR_AFTER_OPERATOR; // ie. 5 + * or 3 / /
           }
         }
       }
@@ -263,19 +264,24 @@ void parser::ensureInputValid(const std::string &input) {
       } else if(nextChar == '/') {
 
       }
+      operatorFound = true;
     } else if(nextChar == '(') {
-      if(decimalFound) {
-        throw INVALID_INPUT; // Decimal
-      }
       leftParenCount++;
       leftParenFound = true;
 
     } else if(nextChar == ')') {
-
+      rightParenCount++;
+      rightParenFound = true;
+      if(rightParenCount > leftParenCount) {
+        throw UNMATCHED_RIGHT_PARENTHESIS; // ie. 5 + 3 ) + 2
+      }
+      if(operatorFound) {
+        throw RIGHT_PARENTHESIS_AFTER_OPERATOR; // ie. ( 5 + ) * 3
+      }
     } else if (nextChar == '.') {
       if(intFound) {
         if(!streamUtilities::isNumber09(static_cast<char>(ss.peek()))) {
-          throw DECIMAL_WITHOUT_PROCEEDING_NUMBER; // Decimal without proceeding number, ie. 3. or 123.
+          throw DECIMAL_WITHOUT_PROCEEDING_NUMBER; // ie. 3. or 123.
         }
         decimalFound = true;
         intFound = false;
@@ -285,9 +291,15 @@ void parser::ensureInputValid(const std::string &input) {
     } else {
       throw INVALID_CHARACTER;
     }
+    ss.peek();
+  }
 
+  if(operatorFound) {
+    throw DANGLING_OPERATOR; // ie. 5 +
+  }
 
-
+  if(leftParenCount != rightParenCount) {
+    throw UNMATCHED_PARENTHESIS; // ie. (( 5 + 3 ) + 2
   }
 
 
