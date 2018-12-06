@@ -10,11 +10,13 @@ SOURCES += \
     fraction.cpp \
     mixednumber.cpp \
     streamutilities.cpp \
-    friendsoffraction.cpp
+    friendsoffraction.cpp \
+    parseexception.cpp
 
 HEADERS += \
     parser.h \
     calculate.h \
     fraction.h \
     mixednumber.h \
-    streamutilities.h
+    streamutilities.h \
+    parseexception.h
