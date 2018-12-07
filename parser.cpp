@@ -210,9 +210,13 @@ void parser::ensureInputValid(const std::string &input) {
   bool operatorFound = false;
   bool leftParenFound = false;
   bool rightParenFound = false;
+  bool emptyExpression = true;
+
 
   mixedNumber trash;
   char nextChar;
+  ss.peek();
+
   while(ss.good()) {
     nextChar = static_cast<char>(ss.get());
 //    std::cout << "DEBUG: Testing: " << nextChar << std::endl;
@@ -236,6 +240,7 @@ void parser::ensureInputValid(const std::string &input) {
       mixedNumberFound = true;
       operatorFound = false;
       leftParenFound = false;
+      emptyExpression = false;
 
     } else if(streamUtilities::isOperator(nextChar)) {
       if(operatorFound || leftParenFound) {
@@ -258,6 +263,7 @@ void parser::ensureInputValid(const std::string &input) {
       operatorFound = false;
       leftParenFound = true;
       rightParenFound = false;
+      emptyExpression = false;
 
     } else if(nextChar == ')') {
       rightParenCount++;
@@ -278,6 +284,10 @@ void parser::ensureInputValid(const std::string &input) {
       throw parseexception(error);
     }
     ss.peek();
+  }
+
+  if(emptyExpression) {
+    throw parseexception("Empty expression");
   }
 
   if(operatorFound) {
