@@ -1,9 +1,8 @@
 #include "calculate.h"
 
-calculate::calculate()
-{
+//mixedNumber calculate::calculateExpression(const std::string &rpnExpression) {
 
-}
+//}
 
 std::string calculate::getAnswer(std::vector<std::string> input)
 {

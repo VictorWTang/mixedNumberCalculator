@@ -9,17 +9,20 @@
 
 #ifndef CALCULATE_H
 #define CALCULATE_H
-
+#include <string>
+#include "mixedNumber.h"
 
 class calculate
 {
 public:
-    calculate();
-    ~calculate();
-    static std::string getAnswer(std::vector<std::string>);
+  static std::string getAnswer(std::vector<std::string>);
 
+//  mixedNumber calculateExpression(const std::string &rpnExpression);
 private:
-    static std::string doCalculations(std::vector<std::string>);
+  static std::string doCalculations(std::vector<std::string>);
+
+
+  calculate() {}
 };
 
 #endif // CALCULATE_H

@@ -6,8 +6,17 @@ CONFIG -= qt
 SOURCES += \
         main.cpp \
     parser.cpp \
-    calculate.cpp
+    calculate.cpp \
+    fraction.cpp \
+    mixednumber.cpp \
+    streamutilities.cpp \
+    friendsoffraction.cpp \
+    parseexception.cpp
 
 HEADERS += \
     parser.h \
-    calculate.h
+    calculate.h \
+    fraction.h \
+    mixednumber.h \
+    streamutilities.h \
+    parseexception.h
