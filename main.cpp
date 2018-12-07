@@ -42,14 +42,19 @@ int main()
   while(true) {
     cout << "EXPRESSION: ";
     getline(cin, expression);
+
+
+    cout << "DEBUG: Parsing to RPN..." << endl;
     expressionBits = parser::parseToRPN(expression);
+
+    cout << "DEBUG: Calculating from RPN..." << endl;
     result = calculate::getAnswer(expressionBits);
 
     for(unsigned int i = 0; i < expressionBits.size(); i++) {
       cout << expressionBits.at(i) << " ";
     }
     cout << "= ";
-    cout << result;
+    cout << result << endl;
   }
   string in = "83/4+987-402589(38-32)*12", print;
   vector<string> send;
