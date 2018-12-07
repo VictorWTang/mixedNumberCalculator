@@ -98,7 +98,7 @@ std::istream& operator>>( std::istream &in, mixedNumber &m)
   fraction firstHalf, secondHalf;
   if(in >> firstHalf) {
     if(firstHalf.getDenom() == 1) {
-      if(streamUtilities::hasNextInt(in)) {
+      if(streamUtilities::hasNextFraction(in)) {
         in >> secondHalf;
 
         if(firstHalf.getNum() > 0) {

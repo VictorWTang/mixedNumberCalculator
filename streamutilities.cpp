@@ -24,9 +24,9 @@ bool streamUtilities::hasNextFraction(std::istream &in) {
   bool firstChar = true;
   char nextChar;
 
+  in.peek();
   while(in.good() && inputValid && !forwardSlashFound) {
     nextChar = static_cast<char>(in.get());
-    std::cout << "found:" << nextChar << std::endl;
     charExtractedCount++;
     if(!forwardSlashFound) {
       if(firstChar) {
@@ -52,6 +52,7 @@ bool streamUtilities::hasNextFraction(std::istream &in) {
       }
     }
   }
+
   if(!in.good()) {
     inputValid = false;
   }

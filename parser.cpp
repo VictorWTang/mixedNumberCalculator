@@ -246,14 +246,18 @@ void parser::ensureInputValid(const std::string &input) {
       ss.unget();
       try {
         ss >> trash;
+//        std::cout << "DEBUG: Got number: " << trash << std::endl;
       } catch (fraction::ERRORS e) {
         if(e == fraction::DIVIDE_BY_ZERO) {
-          throw parseexception("Invalid number");
+          throw parseexception("Divisor of zero");
         }
       };
 
       if(rightParenFound) {
         throw parseexception("Number after right parenthesis"); // ie. (3 + 5) 44
+      }
+      if(mixedNumberFound) {
+        throw parseexception("Consecutive numbers"); // ie. 1 2 3 or 1 + 2 3
       }
 
       mixedNumberFound = true;
