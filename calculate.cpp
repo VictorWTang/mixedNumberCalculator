@@ -23,7 +23,11 @@ std::string calculate::doCalculations(std::vector<std::string> input)
 
         if(isdigit(next) || (next == '-' && check.size() > 1))
         {
-            mixedNumber A(stoi(check));
+            std::stringstream ss;
+            ss<<check;
+            mixedNumber A;
+            ss>>A;
+            std::cout<<"mixNum created: "<<A<<std::endl;
             mixed.push(A);
         }
         else if(next == '+' || next == '-' || next == '*' || next == '/')
