@@ -215,7 +215,7 @@ void parser::ensureInputValid(const std::string &input) {
   char nextChar;
   while(ss.good()) {
     nextChar = static_cast<char>(ss.get());
-    std::cout << "Testing: " << nextChar << std::endl;
+//    std::cout << "DEBUG: Testing: " << nextChar << std::endl;
 
     if(nextChar == ' ') {
     } else if(streamUtilities::isNumber09(nextChar) ||
