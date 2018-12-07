@@ -35,16 +35,32 @@ static uniform_int_distribution<int> charDistribution(' ', '~');
 
 int main()
 {
-   string in = "83/4+987-402589(38-32)*12", print;
-   vector<string> send;
-   send = parser::parseToRPN(in);
-   print = calculate::getAnswer(send);
-   cout << print << endl;
 
-//  generator.seed(static_cast<unsigned int>(time(nullptr)));
-//  runTests();
+  string expression;
+  vector<string> expressionBits;
+  string result;
+  while(true) {
+    cout << "EXPRESSION: ";
+    getline(cin, expression);
+    expressionBits = parser::parseToRPN(expression);
+    result = calculate::getAnswer(expressionBits);
 
-//  runHasNextFractionTests();
+    for(unsigned int i = 0; i < expressionBits.size(); i++) {
+      cout << expressionBits.at(i) << " ";
+    }
+    cout << "= ";
+    cout << result;
+  }
+  string in = "83/4+987-402589(38-32)*12", print;
+  vector<string> send;
+  send = parser::parseToRPN(in);
+  print = calculate::getAnswer(send);
+  cout << print << endl;
+
+  //  generator.seed(static_cast<unsigned int>(time(nullptr)));
+  //  runTests();
+
+  //  runHasNextFractionTests();
 
   runEnsureInputValidTests();
 
@@ -63,9 +79,9 @@ void runEnsureInputValidTests() {
   testInputValid("5 + +3");
   testInputValid("((5 + 3)");
   testInputValid("(5 + 3)");
-//  testInputValid("5 + 3");
-//  testInputValid("5 + 3");
-//  testInputValid("5 + 3");
+  //  testInputValid("5 + 3");
+  //  testInputValid("5 + 3");
+  //  testInputValid("5 + 3");
 }
 
 void testInputValid(string input) {
