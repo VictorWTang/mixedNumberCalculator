@@ -212,94 +212,86 @@ void parser::ensureInputValid(const std::string &input) {
 
 
   // Flags
-  bool fractionFound = false;
-  bool intFound = false;
-  bool decimalFound = false;
+  bool mixedNumberFound = false;
   bool operatorFound = false;
   bool leftParenFound = false;
   bool rightParenFound = false;
-  bool negateFound = false;
-  bool spaceFound = false;
 
-
+  mixedNumber trash;
   char nextChar;
   while(ss.good()) {
     nextChar = static_cast<char>(ss.get());
     std::cout << "Testing: " << nextChar << std::endl;
+
     if(nextChar == ' ') {
-      intFound = false;
-    } else if(streamUtilities::isNumber09(nextChar)) {
-      if(nextChar == '0' && ss.peek() != '.') {
-        if(!intFound) {
-          throw INVALID_NUMBER; // ie. 023 or 0/3
+    } else if(streamUtilities::isNumber09(nextChar) ||
+              (nextChar == '-' && streamUtilities::isNumber09(static_cast<char>(ss.peek())))) {
+      ss.unget();
+      try {
+        ss >> trash;
+      } catch (fraction::ERRORS e) {
+        if(e == fraction::DIVIDE_BY_ZERO) {
+          throw parseexception("Invalid number");
         }
-      } else if(rightParenFound) {
-        throw NUMBER_AFTER_RIGHT_PARENTHESIS; // ie. (3 + 5) 44
-      } else {
-        intFound = true;
-        operatorFound = false;
-        leftParenFound = false;
-      }
-    } else if(nextChar == '-' && streamUtilities::isNumber09(static_cast<char>(ss.peek()))) {
+      };
+
       if(rightParenFound) {
-        throw NEGATIVE_AFTER_RIGHT_PARENTHESIS; // ie. (3 + 5) -44
+        throw parseexception("Number after right parenthesis"); // ie. (3 + 5) 44
       }
-      negateFound = true;
+
+      mixedNumberFound = true;
+      operatorFound = false;
+      leftParenFound = false;
+
     } else if(streamUtilities::isOperator(nextChar)) {
       if(operatorFound || leftParenFound) {
         if(!(nextChar == '-' && streamUtilities::isNumber09(static_cast<char>(ss.peek())))) {
           if(leftParenFound) {
-            throw OPERATOR_AFTER_LEFT_PARENTHESIS; // ie. ( + 3) or (- 2 + 2)
+            throw parseexception("Operator after left parenthesis"); // ie. ( + 3) or (- 2 + 2)
           } else if(operatorFound) {
-            throw OPERATOR_AFTER_OPERATOR; // ie. 5 + * or 3 / /
+            throw parseexception("Operator after operator"); // ie. 5 + * or 3 / /
           }
         }
       }
-      if(nextChar == '-') {
-        if(streamUtilities::isNumber09(static_cast<char>(ss.peek()))) {
-
-        } else {
-
-        }
-      } else if(nextChar == '/') {
-
-      }
+      mixedNumberFound = false;
       operatorFound = true;
+      leftParenFound = false;
+      rightParenFound = false;
+
     } else if(nextChar == '(') {
       leftParenCount++;
+      mixedNumberFound = false;
+      operatorFound = false;
       leftParenFound = true;
+      rightParenFound = false;
 
     } else if(nextChar == ')') {
       rightParenCount++;
-      rightParenFound = true;
       if(rightParenCount > leftParenCount) {
-        throw UNMATCHED_RIGHT_PARENTHESIS; // ie. 5 + 3 ) + 2
+        throw parseexception("Unmatched right parenthesis"); // ie. 5 + 3 ) + 2
       }
       if(operatorFound) {
-        throw RIGHT_PARENTHESIS_AFTER_OPERATOR; // ie. ( 5 + ) * 3
+        throw parseexception("Right parenthesis after operator"); // ie. ( 5 + ) * 3
       }
-    } else if (nextChar == '.') {
-      if(intFound) {
-        if(!streamUtilities::isNumber09(static_cast<char>(ss.peek()))) {
-          throw DECIMAL_WITHOUT_PROCEEDING_NUMBER; // ie. 3. or 123.
-        }
-        decimalFound = true;
-        intFound = false;
-      } else {
-        throw DECIMAL_WITHOUT_PRECEEDING_NUMBER; // ie. -.3 or + .(5 + 3)
-      }
+
+      mixedNumberFound = false;
+      leftParenFound = false;
+      rightParenFound = true;
     } else {
-      throw INVALID_CHARACTER;
+      std::string error = "Invalid character: '";
+      error += nextChar;
+      error += '\'';
+      throw parseexception(error);
     }
     ss.peek();
   }
 
   if(operatorFound) {
-    throw DANGLING_OPERATOR; // ie. 5 +
+    throw parseexception("Dangling operator"); // ie. 5 +
   }
 
   if(leftParenCount != rightParenCount) {
-    throw UNMATCHED_PARENTHESIS; // ie. (( 5 + 3 ) + 2
+    throw parseexception("Unmatched left parenthesis"); // ie. (( 5 + 3 ) + 2
   }
 
 

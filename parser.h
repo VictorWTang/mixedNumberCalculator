@@ -8,6 +8,7 @@
 #include <vector>
 #include "streamutilities.h"
 #include "parseexception.h"
+#include "mixednumber.h"
 
 class parser
 {

@@ -135,6 +135,9 @@ void fraction::getInput()
 
 void fraction::reduce()
 {
+  if(denom == 0) {
+    throw DIVIDE_BY_ZERO;
+  }
   bool neg = num < 0 || denom < 0,
       both = num < 0 && denom < 0;
   int divisor = gcd(abs(num), abs(denom));

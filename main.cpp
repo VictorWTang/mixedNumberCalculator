@@ -53,8 +53,8 @@ void runEnsureInputValidTests() {
   testInputValid("( 5 + ) * 3");
   testInputValid("5 + 3");
   testInputValid("5 + +3");
-//  testInputValid("5 + 3");
-//  testInputValid("5 + 3");
+  testInputValid("((5 + 3)");
+  testInputValid("(5 + 3)");
 //  testInputValid("5 + 3");
 //  testInputValid("5 + 3");
 //  testInputValid("5 + 3");
@@ -67,6 +67,8 @@ void testInputValid(string input) {
     cout << "VALID" << endl;
   } catch (parser::ERRORS e) {
     cout << "Exception: " << e << endl;
+  } catch (parseexception &e) {
+    cout << "Parse exception: " << e.what() << endl;
   }
   cout << endl;
 }
