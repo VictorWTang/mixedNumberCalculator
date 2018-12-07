@@ -193,6 +193,7 @@ int parser::getPrecedence(std::string str)
 std::vector<std::string> parser::parseToRPN(const std::string  &input)
 {
   std::vector<std::string> send;
+  ensureInputValid(input);
   send = toRPN(strToVector(input));
   return send;
 }
