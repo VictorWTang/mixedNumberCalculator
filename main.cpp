@@ -47,19 +47,19 @@ int main()
     cout << "DEBUG: Parsing to RPN..." << endl;
     try {
       expressionBits = parser::parseToRPN(expression);
+      cout << "DEBUG: Calculating from RPN..." << endl;
+      result = calculate::getAnswer(expressionBits);
+
+      for(unsigned int i = 0; i < expressionBits.size(); i++) {
+        cout << expressionBits.at(i) << " ";
+      }
+      cout << "= ";
+      cout << result << endl;
     } catch (parseexception& e) {
       cout << "ERROR: " << e.what() << endl;
       continue;
     }
 
-    cout << "DEBUG: Calculating from RPN..." << endl;
-    result = calculate::getAnswer(expressionBits);
-
-    for(unsigned int i = 0; i < expressionBits.size(); i++) {
-      cout << expressionBits.at(i) << " ";
-    }
-    cout << "= ";
-    cout << result << endl;
   }
   string in = "83/4+987-402589(38-32)*12", print;
   vector<string> send;
