@@ -45,7 +45,12 @@ int main()
 
 
     cout << "DEBUG: Parsing to RPN..." << endl;
-    expressionBits = parser::parseToRPN(expression);
+    try {
+      expressionBits = parser::parseToRPN(expression);
+    } catch (parseexception& e) {
+      cout << "ERROR: " << e.what() << endl;
+      continue;
+    }
 
     cout << "DEBUG: Calculating from RPN..." << endl;
     result = calculate::getAnswer(expressionBits);
