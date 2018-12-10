@@ -10,8 +10,7 @@ SOURCES += \
     fraction.cpp \
     mixednumber.cpp \
     streamutilities.cpp \
-    friendsoffraction.cpp \
-    parseexception.cpp
+    friendsoffraction.cpp
 
 HEADERS += \
     parser.h \

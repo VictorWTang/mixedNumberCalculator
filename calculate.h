@@ -14,10 +14,8 @@ class calculate
 public:
   static std::string getAnswer(std::vector<std::string>);
 
-//  mixedNumber calculateExpression(const std::string &rpnExpression);
 private:
   static std::string doCalculations(std::vector<std::string>);
-
 
   calculate() {}
 };

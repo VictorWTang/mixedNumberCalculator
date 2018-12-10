@@ -50,7 +50,6 @@ void doCalculations() {
       cout << result << endl;
     } catch (parseexception& e) {
       cout << "ERROR: " << e.what() << endl;
-      continue;
     } catch (fraction::ERRORS e) {
       if(e == fraction::DIVIDE_BY_ZERO) {
         cout << "ERROR: Cannot divide by zero" << endl;
@@ -58,6 +57,6 @@ void doCalculations() {
     } catch(...) {
       cout << "ERROR: Unknown error." << endl;
     }
-    cout << endl;
+    cout << endl << endl;
   }
 }
