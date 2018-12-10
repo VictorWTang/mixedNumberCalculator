@@ -57,6 +57,6 @@ void doCalculations() {
     } catch(...) {
       cout << "ERROR: Unknown error." << endl;
     }
-    cout << endl << endl;
+    cout << endl;
   }
 }

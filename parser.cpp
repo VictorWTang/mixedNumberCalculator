@@ -234,7 +234,6 @@ void parser::ensureInputValid(const std::string &input) {
 
   while(ss.good()) {
     nextChar = static_cast<char>(ss.get());
-
     if(nextChar == ' ') {
     } else if(streamUtilities::isNumber09(nextChar) ||
               (nextChar == '-' && streamUtilities::isNumber09(static_cast<char>(ss.peek())))) {
