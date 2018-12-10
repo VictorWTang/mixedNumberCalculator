@@ -1,9 +1,5 @@
 #include "calculate.h"
 
-//mixedNumber calculate::calculateExpression(const std::string &rpnExpression) {
-
-//}
-
 std::string calculate::getAnswer(std::vector<std::string> input)
 {
     std::string send;
@@ -27,7 +23,6 @@ std::string calculate::doCalculations(std::vector<std::string> input)
             ss<<check;
             mixedNumber A;
             ss>>A;
-            std::cout<<"mixNum created: "<<A<<std::endl;
             mixed.push(A);
         }
         else if(next == '+' || next == '-' || next == '*' || next == '/')

@@ -39,10 +39,8 @@ void doCalculations() {
     cout << "EXPRESSION: ";
     getline(cin, expression);
 
-//    cout << "DEBUG: Parsing to RPN..." << endl;
     try {
       expressionBits = parser::parseToRPN(expression);
-//      cout << "DEBUG: Calculating from RPN..." << endl;
       result = calculate::getAnswer(expressionBits);
 
       for(unsigned int i = 0; i < expressionBits.size(); i++) {

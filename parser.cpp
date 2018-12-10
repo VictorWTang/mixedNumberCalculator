@@ -18,9 +18,6 @@ std::vector<std::string> parser::strToVector(std::string input)
         before = *i;
     }
 
-    for(int i = 0; i < input.size(); i++)
-        std::cout<<"parser:strToVect"<<input[i]<<std::endl;
-
     std::vector<std::string> expVect;
 
     std::queue<char> line;
@@ -166,7 +163,6 @@ std::vector<std::string> parser::toRPN(std::vector<std::string> exp)
         else
         {
             throw TRANSLATE_ERROR;
-            std::cout<<check<<std::endl;
         }
         last = next;
     }
@@ -238,7 +234,6 @@ void parser::ensureInputValid(const std::string &input) {
 
   while(ss.good()) {
     nextChar = static_cast<char>(ss.get());
-//    std::cout << "DEBUG: Testing: " << nextChar << std::endl;
 
     if(nextChar == ' ') {
     } else if(streamUtilities::isNumber09(nextChar) ||
@@ -246,7 +241,6 @@ void parser::ensureInputValid(const std::string &input) {
       ss.unget();
       try {
         ss >> trash;
-//        std::cout << "DEBUG: Got number: " << trash << std::endl;
       } catch (fraction::ERRORS e) {
         if(e == fraction::DIVIDE_BY_ZERO) {
           throw parseexception("Divisor of zero");
