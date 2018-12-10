@@ -246,10 +246,10 @@ void parser::ensureInputValid(const std::string &input) {
         }
       };
 
-      if(rightParenFound) {
+      if(rightParenFound && nextChar != '-') {
         throw parseexception("Number after right parenthesis"); // ie. (3 + 5) 44
       }
-      if(mixedNumberFound) {
+      if(mixedNumberFound && nextChar != '-') {
         throw parseexception("Consecutive numbers"); // ie. 1 2 3 or 1 + 2 3
       }
 

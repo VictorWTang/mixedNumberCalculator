@@ -51,6 +51,7 @@ bool streamUtilities::hasNextFraction(std::istream &in) {
         inputValid = false;
       }
     }
+    in.peek();
   }
 
   if(!in.good()) {
